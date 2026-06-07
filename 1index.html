@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>La mia Laurea</title>
+    <style>
+        body { background: #1a1a1a; color: #d4af37; font-family: 'Georgia', serif; text-align: center; padding: 20px; }
+        #contenitore-busta { cursor: pointer; margin-top: 50px; transition: transform 0.8s; }
+        #contenitore-busta:hover { transform: scale(1.05); }
+        .foto { width: 80%; max-width: 400px; border: 2px solid #d4af37; margin: 20px auto; display: block; }
+        #invito { display: none; opacity: 0; transition: opacity 1.5s; }
+        
+        /* Timer quadrato */
+        #timer { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 300px; margin: 30px auto; }
+        .box { border: 1px solid #d4af37; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .box span { font-size: 1.5em; font-weight: bold; }
+
+        /* Stile Location */
+        #sezione-location { margin-top: 40px; padding: 20px; border: 1px solid #d4af37; max-width: 400px; margin: 30px auto; }
+        .btn-maps { display: block; background: #d4af37; color: #1a1a1a; padding: 15px; margin: 20px auto; text-decoration: none; width: 80%; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="contenitore-busta" onclick="apri()">
+        <img src="busta.jpg" style="width: 100%; max-width: 500px; border-radius: 10px;">
+        <p>Tocca la busta per leggere l'invito</p>
+    </div>
+    
+    <div id="invito">
+        <h1>La mia Laurea</h1>
+        <img src="foto1.jpg" class="foto">
+        <img src="foto2.jpg" class="foto">
+        
+        <div id="timer">
+            <div class="box"><span id="days">0</span> GIORNI</div>
+            <div class="box"><span id="hours">0</span> ORE</div>
+            <div class="box"><span id="minutes">0</span> MINUTI</div>
+            <div class="box"><span id="seconds">0</span> SECONDI</div>
+        </div>
+
+        <div id="sezione-location">
+            <h2>La location</h2>
+            <img src="location.jpg" style="width: 100%; border: 1px solid #d4af37;">
+            <p>Terrazza Enjoy<br>Agrigento</p>
+            <p>Dalle 17:00 alle 02:00</p>
+            <a href="https://maps.google.com" class="btn-maps">APRI IN MAPS</a>
+        </div>
+    </div>
+
+    <script>
+        function apri() {
+            document.getElementById('contenitore-busta').style.display = 'none';
+            const inv = document.getElementById('invito');
+            inv.style.display = 'block';
+            setTimeout(() => { inv.style.opacity = '1'; }, 50);
+        }
+
+        const target = new Date("2026-07-07T00:00:00").getTime();
+        setInterval(() => {
+            const diff = target - new Date().getTime();
+            document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24));
+            document.getElementById("hours").innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+            document.getElementById("minutes").innerText = Math.floor((diff % (1000*60*60)) / (1000*60));
+            document.getElementById("seconds").innerText = Math.floor((diff % (1000*60)) / 1000);
+        }, 1000);
+    </script>
+</body>
+</html>
